@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  vue:
+    image: vue:1
+    build: ./vue
+    container_name: vue_container
+    ports:
+      - "18080:8080"
+    volumes:
+      - ./vue/app/:/app/
+    tty: true
