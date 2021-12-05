@@ -1,24 +1,16 @@
-# app
+# ちゅら海ハッカーズ_フロント
 
-## Project setup
+## 起動方法
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+docker-compose up -d --build
 ```
 
-### Compiles and minifies for production
+## サーバの起動
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+docker exec vue_container npm run server
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## ビルド
+```
+docker exec vue_container npm run build
+```
