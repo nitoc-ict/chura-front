@@ -1,13 +1,24 @@
-### 初回up時に必要な操作
-1
+# app
+
+## Project setup
 ```
-docker-compose up -d --build
+npm install
 ```
-2
+
+### Compiles and hot-reloads for development
 ```
-docker exec vue_container sh
+npm run serve
 ```
-3
+
+### Compiles and minifies for production
 ```
-vue create my-project
+npm run build
 ```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
