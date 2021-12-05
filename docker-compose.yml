@@ -2,11 +2,11 @@ version: "3"
 
 services:
   vue:
-    image: vue:1
-    build: ./vue
+    image: vue:chura
+    build: .
     container_name: vue_container
     ports:
-      - "18080:8080"
+      - "8080:8080"
     volumes:
-      - ./vue/app/:/app/
+      - ./app/:/app/
     tty: true

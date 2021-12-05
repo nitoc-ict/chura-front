@@ -2,7 +2,7 @@ FROM node:10.15.3-alpine
 
 WORKDIR /app
 
-RUN echo "apk update & install git"
+# npm install に必要らしい
 RUN apk update
 RUN apk add git
 
