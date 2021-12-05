@@ -7,7 +7,7 @@ docker-compose up -d --build
 
 ## サーバの起動
 ```
-docker exec vue_container npm run server
+docker exec vue_container npm run serve
 ```
 
 ## ビルド
