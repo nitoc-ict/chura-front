@@ -1,17 +1,17 @@
 # ちゅら海ハッカーズ_フロント
 
-## コンテナの起動方法
-起動するとしたの2つができる
+## 1.コンテナの起動
+起動すると2,3ができるようになる
 ```
 docker-compose up -d --build
 ```
 
-## サーバの起動
+## 2.Vueサーバの起動
 ```
 docker exec vue_container npm run serve
 ```
 
-## ビルド
+## 3.ビルド
 ```
 docker exec vue_container npm run build
 ```
