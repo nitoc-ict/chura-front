@@ -25,3 +25,9 @@ docker exec vue_container npm run serve
 ```
 docker exec vue_container npm run build
 ```
+
+## 4.コンテナの閉じかた
+```
+docker stop vue_container
+docker rm vue_container
+```
