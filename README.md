@@ -12,7 +12,7 @@ docker-compose up -d --build
 ＊初回起動時は以下も行ってください
 
 ```
-docker exec vue_contaier npm intall
+docker exec vue_container npm install
 ```
 
 
