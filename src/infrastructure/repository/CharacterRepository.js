@@ -2,20 +2,16 @@
 import {Character} from "../../domain/Character.js";
 import { CharacterId } from "../../domain/CharacterId.js";
 import { CharacterName } from "../../domain/CharacterName.js";
+import { dummyData } from "./DummyData.js";
 export class CharacterRepository {
 
     constructor() {
         // this.firebaseInstance = null;
         // TODO: データ形式がまだ決まっていない
-        this.dummyData = {
-            "1": "vue",
-            "2": "java",
-            "3": "kotlin",
-            "4": "dart",
-            "5": "php",
-            "6": "haskell",
-            "7": "ruby"
-        };
+        /**
+         * @type {object} dummyData
+         */
+        this.dummyData = dummyData(); // TODO: Firebase DBの代わり
     }
 
     /**
@@ -44,7 +40,7 @@ export class CharacterRepository {
     getAll() {
         let allCharacters = [];
         for(let key in this.dummyData) {
-            allCharacters.push(this.dummyData[key]);
+            allCharacters.push(this.toCharacter(this.dummyData[key]));
         }
         return allCharacters;
     }
