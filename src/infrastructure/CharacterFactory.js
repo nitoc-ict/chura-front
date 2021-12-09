@@ -1,6 +1,6 @@
-import { Character } from "../domain/character";
-import { CharacterId } from "../domain/CharacterId";
-import { CharacterName } from "../domain/CharacterName";
+import { Character } from "../domain/Character.js";
+import { CharacterId } from "../domain/CharacterId.js";
+import { CharacterName } from "../domain/CharacterName.js";
 
 //@ts-check
 export class CharacterFactory {

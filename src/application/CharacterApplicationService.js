@@ -24,12 +24,15 @@ export class CharacterApplicationService {
 
     /**
      * @param {string} id
+     * @return {CharacterDTO}
      */
     getCharacterById(id) {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        return this.characterRepository.getById(id);
+        let character = this.characterRepository.getById(id);
+        let characterDTO = new CharacterDTO(character);
+        return characterDTO;
     }
 
     /**
@@ -39,13 +42,23 @@ export class CharacterApplicationService {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        let characters = this.characterRepository.getAll();
+        let characters = this.characterRepository.getAllValues();
         let characterDTOList = [];
 
         for (let key in characters) {
             characterDTOList.push(new CharacterDTO(characters[key]));
         }
         return characterDTOList;
+    }
+
+    /**
+     * @return {Array<String>}
+     */
+    getAllCharacterIds() {
+        if (!(this.characterRepository instanceof CharacterRepository)) {
+            throw "This instance is not CharacterRepository.";
+        }
+        return this.characterRepository.getAllIds();
     }
 
     /**

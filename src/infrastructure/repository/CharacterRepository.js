@@ -15,12 +15,13 @@ export class CharacterRepository {
     }
 
     /**
+     * @param {String} id
      * @param {object} data
      * @return {Character}
      */
-    toCharacter(data) {
+    toCharacter(id, data) {
         return new Character(
-            new CharacterId(data["id"]),
+            new CharacterId(id),
             new CharacterName(data["name"])
         );
     }
@@ -31,18 +32,29 @@ export class CharacterRepository {
      */
     getById(id) {
         let data = this.dummyData[id];
-        return this.toCharacter(data);
+        return this.toCharacter(id, data);
     }
 
     /**
      * @return {Array<Character>}
      */
-    getAll() {
+    getAllValues() {
         let allCharacters = [];
-        for(let key in this.dummyData) {
-            allCharacters.push(this.toCharacter(this.dummyData[key]));
+        for(let id in this.dummyData) {
+            allCharacters.push(this.toCharacter(id, this.dummyData[id]));
         }
         return allCharacters;
+    }
+
+    /**
+     * @return {Array<String>}
+     */
+    getAllIds() {
+        let allCharacterIds = [];
+        for(let id in this.dummyData) {
+            allCharacterIds.push(id);
+        }
+        return allCharacterIds;
     }
 
     /**

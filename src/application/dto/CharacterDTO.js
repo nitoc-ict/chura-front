@@ -8,7 +8,9 @@ export class CharacterDTO {
      * @param {Character} character
      */
     constructor(character) {
-        this.characterID = character.id;
-        this.characterName = character.name;
+        /** @type {String} characterId */
+        this.characterId = character.id.value;
+        /** @type {String} characterName */
+        this.characterName = character.name.value;
     }
 }

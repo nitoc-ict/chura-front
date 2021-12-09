@@ -4,53 +4,41 @@
  */
 export function dummyData() {
     return {
-        /**
-         * @type {string} タスク名
-         */
-        "1": "vue",
-        /**
-         * @type {string} タスク名
-         */
-        "2": "python",
-        /**
-         * @type {string} タスク名
-         */
-        "3": "android",
-        /**
-         * @type {string} タスク名
-         */
-        "4": "css",
-        /**
-         * @type {string} タスク名
-         */
-        "5": "go",
-        /**
-         * @type {string} タスク名
-         */
-        "6": "html",
-        /**
-         * @type {string} タスク名
-         */
-        "7": "javascript",
-        /**
-         * @type {string} タスク名
-         */
-        "8": "php",
-        /**
-         * @type {string} タスク名
-         */
-        "9": "java",
-        /**
-         * @type {string} タスク名
-         */
-        "10": "ruby",
-        /**
-         * @type {string} タスク名
-         */
-        "11": "cs",
-        /**
-         * @type {string} タスク名
-         */
-        "12": "swift"
+        "test1": {
+            "name": "vue"
+        },
+        "test2": {
+            "name": "python"
+        },
+        "test3": {
+            "name": "android"
+        },
+        "test4": {
+            "name": "css"
+        },
+        "test5": {
+            "name": "go"
+        },
+        "test6": {
+            "name": "html"
+        },
+        "test7":{
+            "name": "javascript"
+        },
+        "test8": {
+            "name": "php"
+        },
+        "test9": {
+            "name": "java"
+        },
+        "test10": {
+            "name": "ruby"
+        },
+        "test11": {
+            "name": "cs"
+        },
+        "test12": {
+            "name": "swift"
+        }
     };
 }
