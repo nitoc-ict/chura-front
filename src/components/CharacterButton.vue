@@ -1,19 +1,14 @@
 <template>
   <div>
-      <button @click="onClick">{{ character_id }}</button>
+      <button>{{ character_data }}</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Character',
+  name: 'CharacterButton',
   props: {
-    character_id: String
+    character_data: String
   },
-  methods: {
-    onClick: function() {
-      this.$emit("onSelectCharacter", this.character_id);
-    }
-  }
 }
 </script>

@@ -7,13 +7,13 @@
   </div>
 
   <div class="character-buttons">
-    <div v-for="character in characters" :key="character.id">
-      <CharacterButton @onSelectCharacter="onSelectCharacter" :character_id=character></CharacterButton>
+    <div v-for="character_id in characters" :key="character_id.key">
+      <CharacterButton @click.native="onSelectCharacter(character_id)" :character_data=character_id></CharacterButton>
     </div>
   </div>
 
   <div class="character-view">
-    <CharacterView></CharacterView>
+    <CharacterView :character_id=character_id></CharacterView>
   </div>
 
   <div class="progress-tree-chart">
@@ -26,7 +26,7 @@
 import CharacterButton from "@/components/CharacterButton.vue";
 import CharacterView from "@/components/CharacterView.vue";
 import ProgressTreeChart from "@/components/ProgressTreeChart.vue"
-
+import { InjectionConfig } from "./controller/InjectionConfig";
 export default {
   name: 'Home',
   components: {
@@ -34,28 +34,21 @@ export default {
     CharacterView,
     ProgressTreeChart
   },
-  props: {
-    character_id: {
-      type: String,
-      default: "1",
-      require: true
-    },
-  },
-  // ダミーデータ（Firebaseを使用する）
   data: function() {
     return {
-      characters: [
-        "vue",
-        "java",
-        "php",
-        "haskell",
-        "ruby"
-      ]
+      characters: [""],
+      character_id: "test1"
     }
   },
+  created: function() {
+    let di = InjectionConfig.getInstance();
+    let characterApp = di.characterApplication;
+    this.characters = characterApp.getAllCharacterIds();
+  },
   methods: {
-    onSelectCharacter(character_id) {
-      this.character_id = character_id;
+    onSelectCharacter(value) {
+      console.log(value);
+      this.character_id = value;
     }
   }
 }
