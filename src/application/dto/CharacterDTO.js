@@ -1,6 +1,6 @@
 //@ts-check
 // JSDoc用にno-unused-varsを非表示
-import { Character } from "../../domain/Character"; // eslint-disable-line no-unused-vars
+import { Character } from "../../domain/character/Character"; // eslint-disable-line no-unused-vars
 
 export class CharacterDTO {
     

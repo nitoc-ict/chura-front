@@ -14,7 +14,7 @@ const characterApplication = new CharacterApplicationService(
   characterFactory
 );
 
-let di = InjectionConfig.getInstance();
+const di = InjectionConfig.getInstance();
 di.injectCharacterApplication(characterApplication); //依存性注入
 
 Vue.config.productionTip = false

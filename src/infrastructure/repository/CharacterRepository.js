@@ -1,8 +1,8 @@
 //@ts-check
-import {Character} from "../../domain/Character.js";
-import { CharacterId } from "../../domain/CharacterId.js";
-import { CharacterName } from "../../domain/CharacterName.js";
-import { dummyData } from "./DummyData.js";
+import {Character} from "../../domain/character/Character.js";
+import { CharacterId } from "../../domain/character/value/CharacterId.js";
+import { CharacterName } from "../../domain/character/value/CharacterName.js";
+import { getCharacterDummyData } from "./DummyData.js";
 export class CharacterRepository {
 
     constructor() {
@@ -11,10 +11,11 @@ export class CharacterRepository {
         /**
          * @type {object} dummyData
          */
-        this.dummyData = dummyData(); // TODO: Firebase DBの代わり
+        this.dummyData = getCharacterDummyData(); // TODO: Firebase DBの代わり
     }
 
     /**
+     * CharacterをEntityへ変換
      * @param {String} id
      * @param {object} data
      * @return {Character}
@@ -27,37 +28,42 @@ export class CharacterRepository {
     }
 
     /**
+     * 固有IDからCharacterを取得
      * @param {string} id
      * @return {Character}
      */
     getById(id) {
-        let data = this.dummyData[id];
+        const data = this.dummyData[id];
         return this.toCharacter(id, data);
     }
 
     /**
+     * すべてのCharacterを取得
      * @return {Array<Character>}
      */
-    getAllValues() {
-        let allCharacters = [];
-        for(let id in this.dummyData) {
+    getAllData() {
+        const allCharacters = [];
+        for (const id in this.dummyData) {
             allCharacters.push(this.toCharacter(id, this.dummyData[id]));
         }
         return allCharacters;
     }
 
     /**
+     * すべてのCharacterの固有IDを取得
      * @return {Array<String>}
      */
     getAllIds() {
-        let allCharacterIds = [];
-        for(let id in this.dummyData) {
+        const allCharacterIds = [];
+        for (const id in this.dummyData) {
             allCharacterIds.push(id);
         }
         return allCharacterIds;
     }
 
     /**
+     * Characterを保存
+     * TODO: Character Entityを永続化処理する工程が必要
      * @param {Character} character
      */
     save(character) {

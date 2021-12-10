@@ -1,8 +1,14 @@
 //@ts-check
 /**
+ * 
+ * {
+ *  "Characterの固有ID": {
+ *          "name": ""
+ *      }
+ * }
  * @return {Object}
  */
-export function dummyData() {
+export function getCharacterDummyData() {
     return {
         "test1": {
             "name": "vue"

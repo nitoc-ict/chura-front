@@ -1,7 +1,7 @@
 //@ts-check
 import {CharacterRepository} from "../infrastructure/repository/CharacterRepository.js";
 // JSDoc用にno-unused-varsを非表示
-import { Character } from "../domain/Character.js"; // eslint-disable-line no-unused-vars
+import { Character } from "../domain/character/Character.js"; // eslint-disable-line no-unused-vars
 import {CharacterDTO} from "./dto/CharacterDTO.js";
 import { CharacterFactory } from "../infrastructure/CharacterFactory.js";
 
@@ -23,6 +23,7 @@ export class CharacterApplicationService {
     }
 
     /**
+     * 取得したCharacterをDTOへ変換し、提供
      * @param {string} id
      * @return {CharacterDTO}
      */
@@ -30,28 +31,30 @@ export class CharacterApplicationService {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        let character = this.characterRepository.getById(id);
-        let characterDTO = new CharacterDTO(character);
+        const character = this.characterRepository.getById(id);
+        const characterDTO = new CharacterDTO(character);
         return characterDTO;
     }
 
     /**
+     * 取得したすべてのCharacterをDTOへ変換し、提供
      * @return {Array<CharacterDTO>}
      */
     getAllCharacters() {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        let characters = this.characterRepository.getAllValues();
-        let characterDTOList = [];
+        const characters = this.characterRepository.getAllData();
+        const characterDTOList = [];
 
-        for (let key in characters) {
-            characterDTOList.push(new CharacterDTO(characters[key]));
+        for (const id in characters) {
+            characterDTOList.push(new CharacterDTO(characters[id]));
         }
         return characterDTOList;
     }
 
     /**
+     * すべてのCharacterの固有IDを提供
      * @return {Array<String>}
      */
     getAllCharacterIds() {
@@ -62,10 +65,11 @@ export class CharacterApplicationService {
     }
 
     /**
+     * 入力された名前のCharacterを生成し、保存
      * @param {String} name
      */
     saveCharacter(name) {
-        let character = this.characterFactory.create(name);
+        const character = this.characterFactory.create(name);
         this.characterRepository.save(character);
     }
 }

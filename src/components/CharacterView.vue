@@ -11,10 +11,9 @@
 
 <script>
 import { CharacterDTO } from '../application/dto/CharacterDTO';
-import { Character } from '../domain/Character';
-import { CharacterId } from '../domain/CharacterId';
-import { CharacterName } from '../domain/CharacterName';
-//import { CharacterDTO } from '../application/dto/CharacterDTO';
+import { Character } from '../domain/character/Character';
+import { CharacterId } from '../domain/character/value/CharacterId';
+import { CharacterName } from '../domain/character/value/CharacterName';
 import { InjectionConfig } from '../views/controller/InjectionConfig';
 
 export default {
@@ -51,7 +50,7 @@ export default {
     updateCharacter(id) {
       const di = InjectionConfig.getInstance();
       const characterApp = di.characterApplication;
-      let characterDTO = characterApp.getCharacterById(id);
+      const characterDTO = characterApp.getCharacterById(id);
       this.character_dto = characterDTO;
     }
   }

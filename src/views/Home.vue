@@ -37,17 +37,17 @@ export default {
   data: function() {
     return {
       characters: [""],
-      character_id: "test1"
+      character_id: ""
     }
   },
   created: function() {
-    let di = InjectionConfig.getInstance();
-    let characterApp = di.characterApplication;
+    const di = InjectionConfig.getInstance();
+    const characterApp = di.characterApplication;
     this.characters = characterApp.getAllCharacterIds();
+    this.character_id = this.characters[0];
   },
   methods: {
     onSelectCharacter(value) {
-      console.log(value);
       this.character_id = value;
     }
   }
