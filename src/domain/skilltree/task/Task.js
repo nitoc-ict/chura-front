@@ -1,5 +1,5 @@
 //@ts-check
-/* eslint-disable no-unused-vars */
+
 import { TaskDescription } from "./value/TaskDescription";
 import { TaskId } from "./value/TaskId";
 import { TaskTitle } from "./value/TaskTitle";

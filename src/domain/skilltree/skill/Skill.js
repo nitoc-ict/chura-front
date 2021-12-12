@@ -11,9 +11,9 @@ export class Skill {
      * @param {SkillTitle} title
      * @param {Desctiption} description
      * @param {Array<TaskId>} taskIds
-     * @param {Array<Skill>} dependentSkills
+     * @param {Array<SkillId>} dependentSkillIds
      */
-    constructor(id, title, description, taskIds, dependentSkills) {
+    constructor(id, title, description, taskIds, dependentSkillIds) {
         if (!(id instanceof SkillId)) throw "ID is not SkillId.";
         if (!(title instanceof SkillTitle)) throw "Title is not SkillTitle.";
         if (!(description instanceof SkillDesctiption)) throw "Description is not SkillDescription.";
@@ -21,6 +21,6 @@ export class Skill {
         this.title = title;                     //スキルの名前
         this.description = description;         //スキルの説明
         this.taskIds = taskIds;                 //やるべきタスク
-        this.dependentSkills = dependentSkills  //依存しているスキル(このスキルを覚える上で、理解しているべきスキル。スキルツリーの根本側で、自分と直接繋がっているスキル)
+        this.dependentSkillIds = dependentSkillIds  //依存しているスキル(このスキルを覚える上で、理解しているべきスキル。スキルツリーの根本側で、自分と直接繋がっているスキル)
     }
 }
