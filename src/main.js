@@ -5,6 +5,7 @@ import { CharacterApplicationService } from "./application/CharacterApplicationS
 import { CharacterRepository } from "./infrastructure/repository/CharacterRepository";
 import { InjectionConfig } from "./views/controller/InjectionConfig";
 import { CharacterFactory } from './infrastructure/CharacterFactory';
+import vuetify from './plugins/vuetify'
 
 const characterFactory = new CharacterFactory();
 const characterRepository = new CharacterRepository();
@@ -21,5 +22,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
