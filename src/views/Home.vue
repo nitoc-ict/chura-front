@@ -17,7 +17,8 @@
   </div>
 
   <div class="progress-tree-chart">
-    <SkillTreeChart></SkillTreeChart>
+    <SkillTreeChart
+    ></SkillTreeChart>
   </div>
 </div>
 </template>
