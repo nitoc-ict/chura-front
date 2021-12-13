@@ -17,7 +17,7 @@
   </div>
 
   <div class="progress-tree-chart">
-    <ProgressTreeChart></ProgressTreeChart>
+    <SkillTreeChart></SkillTreeChart>
   </div>
 </div>
 </template>
@@ -25,14 +25,14 @@
 <script>
 import CharacterButton from "@/components/CharacterButton.vue";
 import CharacterView from "@/components/CharacterView.vue";
-import ProgressTreeChart from "@/components/ProgressTreeChart.vue"
+import SkillTreeChart from "@/components/SkillTreeChart.vue"
 import { InjectionConfig } from "./controller/InjectionConfig";
 export default {
   name: 'Home',
   components: {
     CharacterButton,
     CharacterView,
-    ProgressTreeChart
+    SkillTreeChart: SkillTreeChart
   },
   data: function() {
     return {
