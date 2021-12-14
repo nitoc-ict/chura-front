@@ -10,8 +10,8 @@ export class Skill {
      * @param {SkillId} id
      * @param {SkillTitle} title
      * @param {Desctiption} description
-     * @param {Array<TaskId>} taskIds
-     * @param {Array<SkillId>} dependentSkillIds
+     * @param {Array<String>} taskIds
+     * @param {Array<String>} dependentSkillIds
      */
     constructor(id, title, description, taskIds, dependentSkillIds) {
         if (!(id instanceof SkillId)) throw "ID is not SkillId.";
