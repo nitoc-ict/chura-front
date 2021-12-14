@@ -4,7 +4,6 @@ import { Skill } from "../../domain/skilltree/skill/Skill";
 import { SkillDesctiption } from "../../domain/skilltree/skill/value/SkillDescription";
 import { SkillId } from "../../domain/skilltree/skill/value/SkillId";
 import { SkillTitle } from "../../domain/skilltree/skill/value/SkillTitle";
-import { getSkillDummyData } from "./DummyData";
 import { collection, doc, Firestore, getDoc, getDocs, query, where } from "firebase/firestore";
 import { Auth } from "firebase/auth";
 

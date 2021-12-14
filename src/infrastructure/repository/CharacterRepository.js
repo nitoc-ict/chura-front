@@ -2,7 +2,6 @@
 import {Character} from "../../domain/character/Character.js";
 import { CharacterId } from "../../domain/character/value/CharacterId.js";
 import { CharacterName } from "../../domain/character/value/CharacterName.js";
-import { getCharacterDummyData } from "./DummyData.js";
 /* eslint-disable no-unused-vars */
 import { collection, doc, Firestore, getDoc, getDocs, query, where } from "firebase/firestore";
 
@@ -11,9 +10,8 @@ export class CharacterRepository {
     /**
      * @param {Firestore} firestore
      */
-    constructor(firestore, firebaseAuth) {
+    constructor(firestore) {
         this.firestore = firestore;
-        this.dummyData = getCharacterDummyData(); // TODO: Firebase DBの代わり
     }
 
     /**
