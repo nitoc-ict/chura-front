@@ -12,6 +12,7 @@ import { getAuth } from "firebase/auth";
 import { SkillRepository } from './infrastructure/repository/SkillRepository';
 import { TaskApplicationService } from './application/TaskApplicationService';
 import { TaskRepository } from './infrastructure/repository/TaskRepository';
+import { SkillTreeApplicationService } from './application/SkillTreeApplicationService';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAk8QXcTK4ZUe1CvTU9uYvceieuHEu_HSk",
@@ -47,13 +48,18 @@ const characterApplication = new CharacterApplicationService(
   characterFactory
 );
 
+const skillApplication = new SkillTreeApplicationService(
+  skillRepository
+);
+
 const taskApplication = new TaskApplicationService(
   taskRepository
 );
 
 const di = InjectionConfig.getInstance();
-di.injectCharacterApplication(characterApplication); // 依存性注入
-di.injectSkillTreeApplication(skillRepository);
+// 依存性注入
+di.injectCharacterApplication(characterApplication);
+di.injectSkillTreeApplication(skillApplication);
 di.injectTaskApplication(taskApplication);
 
 Vue.config.productionTip = false;
