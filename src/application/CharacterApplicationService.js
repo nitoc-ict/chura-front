@@ -24,14 +24,14 @@ export class CharacterApplicationService {
 
     /**
      * 取得したCharacterをDTOへ変換し、提供
-     * @param {string} id
-     * @return {CharacterDTO}
+     * @param {String} id
+     * @return {Promise<CharacterDTO>}
      */
-    getCharacterById(id) {
+    async getCharacterById(id) {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        const character = this.characterRepository.getById(id);
+        const character = await this.characterRepository.getById(id);
         const characterDTO = new CharacterDTO(character);
         return characterDTO;
     }
@@ -55,13 +55,13 @@ export class CharacterApplicationService {
 
     /**
      * すべてのCharacterの固有IDを提供
-     * @return {Array<String>}
+     * @return {Promise<Array<String>>}
      */
-    getAllCharacterIds() {
+    async getAllCharacterIds() {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        return this.characterRepository.getAllIds();
+        return await this.characterRepository.getAllIds();
     }
 
     /**
