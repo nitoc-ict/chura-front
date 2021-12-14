@@ -11,6 +11,7 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 import { SkillRepository } from './infrastructure/repository/SkillRepository';
 import { TaskApplicationService } from './application/TaskApplicationService';
+import { TaskRepository } from './infrastructure/repository/TaskRepository';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAk8QXcTK4ZUe1CvTU9uYvceieuHEu_HSk",
@@ -36,6 +37,10 @@ const skillRepository = new SkillRepository(
   firestore,
   firebaseAuth
 );
+const taskRepository = new TaskRepository(
+  firestore,
+  firebaseAuth
+);
 
 const characterApplication = new CharacterApplicationService(
   characterRepository,
@@ -43,8 +48,7 @@ const characterApplication = new CharacterApplicationService(
 );
 
 const taskApplication = new TaskApplicationService(
-  firestore,
-  firebaseAuth
+  taskRepository
 );
 
 const di = InjectionConfig.getInstance();
