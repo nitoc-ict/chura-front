@@ -40,10 +40,10 @@ export default {
       character_id: ""
     }
   },
-  created: function() {
+  created: async function() {
     const di = InjectionConfig.getInstance();
     const characterApp = di.characterApplication;
-    this.characters = characterApp.getAllCharacterIds();
+    this.characters = await characterApp.getAllCharacterIds();
     this.character_id = this.characters[0];
   },
   methods: {
