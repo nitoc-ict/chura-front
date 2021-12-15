@@ -1,6 +1,6 @@
 //@ts-check
-export class CharacterName {
-    
+
+export class TaskTitle {
     /**
      * @param {String} value
      */

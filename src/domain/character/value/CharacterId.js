@@ -2,7 +2,7 @@
 export class CharacterId {
     
     /**
-     * @param {string} value
+     * @param {String} value
      */
     constructor(value) {
         this.value = value;

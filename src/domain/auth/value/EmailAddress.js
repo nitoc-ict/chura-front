@@ -1,5 +1,5 @@
 //@ts-check
-export class CharacterName {
+export class EmailAddress {
     
     /**
      * @param {String} value

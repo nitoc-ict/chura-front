@@ -2,16 +2,16 @@
 import {Character} from "../../domain/character/Character.js";
 import { CharacterId } from "../../domain/character/value/CharacterId.js";
 import { CharacterName } from "../../domain/character/value/CharacterName.js";
-import { getCharacterDummyData } from "./DummyData.js";
+/* eslint-disable no-unused-vars */
+import { collection, doc, Firestore, getDoc, getDocs, query, where } from "firebase/firestore";
+
 export class CharacterRepository {
 
-    constructor() {
-        // this.firebaseInstance = null;
-        // TODO: データ形式がまだ決まっていない
-        /**
-         * @type {object} dummyData
-         */
-        this.dummyData = getCharacterDummyData(); // TODO: Firebase DBの代わり
+    /**
+     * @param {Firestore} firestore
+     */
+    constructor(firestore) {
+        this.firestore = firestore;
     }
 
     /**
@@ -29,35 +29,43 @@ export class CharacterRepository {
 
     /**
      * 固有IDからCharacterを取得
-     * @param {string} id
-     * @return {Character}
+     * @param {String} id
+     * @return {Promise<Character>}
      */
-    getById(id) {
-        const data = this.dummyData[id];
+    async getById(id) {
+        const docRef = doc(this.firestore, "characters", id);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (!docSnap.exists()) {
+            throw "DocumentSnap is not exists."
+        }
+
         return this.toCharacter(id, data);
     }
 
     /**
      * すべてのCharacterを取得
-     * @return {Array<Character>}
+     * @return {Promise<Array<Character>>}
      */
-    getAllData() {
+    async getAllData() {
         const allCharacters = [];
-        for (const id in this.dummyData) {
-            allCharacters.push(this.toCharacter(id, this.dummyData[id]));
-        }
+        const querySnapshot = await getDocs(collection(this.firestore, "characters"));
+        querySnapshot.forEach((doc) => {
+            allCharacters.push(this.toCharacter(doc.id, doc.data()));
+        });
         return allCharacters;
     }
 
     /**
      * すべてのCharacterの固有IDを取得
-     * @return {Array<String>}
+     * @return {Promise<Array<String>>}
      */
-    getAllIds() {
+    async getAllIds() {
         const allCharacterIds = [];
-        for (const id in this.dummyData) {
-            allCharacterIds.push(id);
-        }
+        const snapshot = await getDocs(collection(this.firestore, "characters"));
+        snapshot.docs.forEach((doc) => {
+            allCharacterIds.push(doc.id);
+        });
         return allCharacterIds;
     }
 

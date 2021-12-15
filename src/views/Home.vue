@@ -26,6 +26,7 @@
 <script>
 import CharacterButton from "@/components/CharacterButton.vue";
 import CharacterView from "@/components/CharacterView.vue";
+import { GetDI } from "./controller/GetDI";
 import SkillTreeChart from "@/components/SkillTreeChart.vue"
 import { InjectionConfig } from "./controller/InjectionConfig";
 export default {
@@ -41,10 +42,10 @@ export default {
       character_id: ""
     }
   },
-  created: function() {
-    const di = InjectionConfig.getInstance();
+  created: async function() {
+    const di = GetDI.getInstance();
     const characterApp = di.characterApplication;
-    this.characters = characterApp.getAllCharacterIds();
+    this.characters = await characterApp.getAllCharacterIds();
     this.character_id = this.characters[0];
   },
   methods: {
