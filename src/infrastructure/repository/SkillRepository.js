@@ -41,10 +41,10 @@ export class SkillRepository {
     async getSkillById(characterId, skillId) {
         const snapshot = await getDoc(doc(
             this.firestore,
-            "users", //col
-            "user1", //doc
-            "characters", //col
-            characterId, //doc
+            "users",
+            this.firebaseAuth.currentUser.uid,
+            "characters",
+            characterId,
             "skilltrees",
             skillId
         ));
@@ -60,13 +60,14 @@ export class SkillRepository {
     async getSkillTreeById(characterId) {
         const snapshot = await getDocs(collection(
             this.firestore,
-            "users", //col
-            "user1", //doc
-            "characters", //col
-            characterId, //doc
+            "users",
+            this.firebaseAuth.currentUser.uid,
+            "characters",
+            characterId,
             "skilltrees"
         ));
         const skillTree = snapshot.docs.map((doc) => doc.id);
         return skillTree;
     }
+    
 }
