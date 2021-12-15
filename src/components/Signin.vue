@@ -11,12 +11,7 @@
 </template>
 
 <script>
-
-import { initFirebase } from "../firebaseInit"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-
-initFirebase()
-const auth = getAuth()
+import { InjectionConfig } from '../views/controller/InjectionConfig';
 
 export default {
   name: 'Signin',
@@ -28,7 +23,9 @@ export default {
   },
   methods: {
     signIn: function () {
-      signInWithEmailAndPassword(auth, this.username, this.password).then(
+      const di = InjectionConfig.getInstance();
+      const authApplication = di.authApplication;
+      authApplication.signInWithEmailAndPassword(this.username, this.password).then(
         user => {
           alert('Success!' + user)
           this.$router.push('/')

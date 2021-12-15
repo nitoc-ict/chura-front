@@ -11,12 +11,7 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import { initFirebase } from "../firebaseInit"
-
-// initializeApp
-initFirebase()
-const auth = getAuth()
+import { InjectionConfig } from '../views/controller/InjectionConfig';
 
 export default {
   name: 'Signup',
@@ -28,7 +23,9 @@ export default {
   },
   methods: {
     signUp: function () {
-      createUserWithEmailAndPassword(auth, this.username, this.password)
+      const di = InjectionConfig.getInstance();
+      const authApplication = di.authApplication;
+      authApplication.registerWithEmailAndPassword(this.username, this.password)
         .then(user => {
           alert('Create account: ', user.email)
         })

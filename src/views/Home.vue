@@ -15,24 +15,18 @@
   <div class="character-view">
     <CharacterView :character_id=character_id></CharacterView>
   </div>
-
-  <div class="progress-tree-chart">
-    <ProgressTreeChart></ProgressTreeChart>
-  </div>
 </div>
 </template>
 
 <script>
 import CharacterButton from "@/components/CharacterButton.vue";
 import CharacterView from "@/components/CharacterView.vue";
-import ProgressTreeChart from "@/components/ProgressTreeChart.vue"
 import { InjectionConfig } from "./controller/InjectionConfig";
 export default {
   name: 'Home',
   components: {
     CharacterButton,
-    CharacterView,
-    ProgressTreeChart
+    CharacterView
   },
   data: function() {
     return {
