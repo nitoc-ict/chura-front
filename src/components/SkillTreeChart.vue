@@ -15,13 +15,13 @@
             cols="4"
             style="padding: 24px; background-color: darkcyan;"
         >
-          <p>{{selectedSkill.title}}</p>
-          <p>{{selectedSkill.description}}</p>
+          <p>{{selectedSkill.skillTitle}}</p>
+          <p>{{selectedSkill.skillDescription}}</p>
           <v-row
-              v-for="(task, index) in selectedSkill.taskIds" :key = index
+              v-for="(task, index) in taskList" :key = index
           >
-            <p>{{task.title}}</p>
-            <p>{{task.description}}</p>
+            <p>{{task.taskTitle}}</p>
+            <p>{{task.taskDescription}}</p>
           </v-row>
 
         </v-col>
@@ -31,8 +31,9 @@
 </template>
 
 <script>
-import {Skill} from "@/domain/skilltree/Skill";
-import {Task} from "@/domain/skilltree/Task";
+import {GetDI} from "@/views/controller/GetDI";
+import {SkillDTO} from "@/application/dto/SkillDTO";
+import {TaskDTO} from "@/application/dto/TaskDTO";
 
 const mxClient = require("mxgraph")({
   mxLoadResources: false,
@@ -43,120 +44,68 @@ export default {
   name: 'SkillTreeChart',
   props: {
     character_id: {
+      type: String,
     }
   },
   data: function(){
     return {
-      skillTree: [
-        new Skill(
-            'test_1',
-            'クソ長スキル名を入れてみたらどんなレイアウトになるんでしょうね。',
-            'スキル１の説明を書きます。',
-            [
-              new Task(
-                  'test_1_1',
-                  'Task1',
-                  'Taskの説明',
-                  true
-              ),
-              new Task(
-                  'test_1_2',
-                  'Task2',
-                  'Taskの説明',
-                  true
-              ),
-              new Task(
-                  'test_1_3',
-                  'Task3',
-                  'Taskの説明',
-                  true
-              ),
-            ],
-            [],
-        ),
-        new Skill(
-            'test_2',
-            'スキル2',
-            'スキル2の説明を書きます。',
-            [
-              new Task(
-                  'test_2_1',
-                  'Task1',
-                  'Taskの説明',
-                  true
-              ),
-              new Task(
-                  'test_2_2',
-                  'Task2',
-                  'Taskの説明',
-                  true
-              ),
-              new Task(
-                  'test_2_3',
-                  'Task3',
-                  'Taskの説明',
-                  true
-              ),
-            ],
-            ['test_1'],
-        ),
-        new Skill(
-            'test_3',
-            'スキル3',
-            'スキル3の説明を書きます。',
-            [
-              new Task(
-                  'test_1_1',
-                  'Task1',
-                  'Taskの説明',
-                  true
-              ),
-              new Task(
-                  'test_1_2',
-                  'Task2',
-                  'Taskの説明',
-                  true
-              ),
-              new Task(
-                  'test_1_3',
-                  'Task3',
-                  'Taskの説明',
-                  true
-              ),
-            ],
-            ['test_1'],
-        ),
-      ],
-      container: null,
-      graph: null,      //MxGraphのインスタンスを格納する為の変数
-      parent: null,     //グラフのエッジやノードを追加する際に必要
-      selectedSkill: Skill
+      container: null,    // SkillTreeを描画する要素のインスタンスを取得
+      graph: null,        // MxGraphのインスタンスを格納する為の変数
+      parent: null,       // グラフのエッジやノードを追加する際に必要
+
+      skillTreeApp: null, // SkillApplicationServiceのインスタンスを格納する
+      taskApp: null,      // TaskApplicationServiceのインスタンスを格納する
+
+      selectedSkill: {    // 現在選択されているスキル
+        type: SkillDTO,
+        default: null,
+      },
+      taskList: {         // 現在選択されているスキルのタスクリスト
+        type: TaskDTO,
+        default: [],
+      }
     }
   },
-  mounted: function () {
-    this.init();
+  watch: {
+    character_id: async function(newId) {
+      await this.drawGraph(newId);
+    },
+  },
+  mounted: async function () {
+    await this.initAppService();
+    await this.initGraph();
     this.drawGraph();
   },
   methods: {
-    init: function () {
+    // SkillとTaskのApplicationServiceを取得する。
+    initAppService: function (){
+      const di = GetDI.getInstance();
+      this.skillTreeApp = di.skillTreeApplication;
+      this.taskApp = di.taskApplication;
+    },
+
+    // mxGraphの初期化処理
+    initGraph: function () {
       this.container = this.$refs.skillTreeContainer;
       this.graph = new mxClient.mxGraph(this.container);
       this.parent = this.graph.getDefaultParent();
-      this.selectedSkill = this.skillTree[0]
     },
-    drawGraph: function () {
+
+    // Skillデータを取得してきてグラフ上に描画する
+    drawGraph: async function (characterId) {
       const layout = new mxClient.mxHierarchicalLayout(this.graph);
       const vertexs = new Map();
+      const skillTree = await this.skillTreeApp.getSkillTreeById(characterId);
 
+      // グラフ内の要素をクリックした際の処理を追加
       this.graph.addListener('click', (sender, evt) => {
         //イベントからCellを取得
         const cell = evt.getProperty('cell');
 
         //取得したモノが、グラフ上に存在しているセルなのか
         if (this.graph.getModel().isVertex(cell)) {
-          const skillId = cell.id;
-          //TODO skillIdを元に、ApplicationServiceからTaskを取って来て描画用の変数に格納する処理
-          console.log(skillId)
+          const skillId = cell.id;      //cellのidはskillIdと同じに設定しているのでコレでSkillのIdが取れる
+          this.showSkillInfo(skillId);  //タップしたSkillの詳細を表示
         }
       })
 
@@ -164,29 +113,36 @@ export default {
       // beginUpdate -> グラフモデル変更 -> endUpdate の順に行う
       this.graph.getModel().beginUpdate();
 
+      //グラフ内のノードとエッジを全部削除
+      this.graph.removeCells()
+
       try {
-        for(const skill of this.skillTree) {
+        for(const skill of skillTree) {
+          // SkillをノードとしてGraph上に追加
           const vertex = this.graph.insertVertex(
               this.parent,
-              skill.skillId,  //ノードの識別子
-              skill.title,    //ノードをラベル
-              null,           //ノードのx座標
-              null,           //ノードのy座標
-              80,             //ノードの幅
-              30,             //ノードの高さ
-              null            //ノードのスタイル
+              skill.skillId,    // ノードの識別子
+              skill.skillTitle, // ノードをラベル
+              null,             // ノードのx座標
+              null,             // ノードのy座標
+              80,               // ノードの幅
+              30,               // ノードの高さ
+              null              // ノードのスタイル
           );
+
+          // vertexsにskillIdをKeyにしてノードのインスタンスを追加
           vertexs.set(skill.skillId, vertex);
 
+          // ノードとノードをつなげるEdgeを追加
           for (const dependSkillId of skill.dependentSkillIds) {
             console.log("dependSkillId" + dependSkillId)
             this.graph.insertEdge(
                 this.parent,
-                null,                       //エッジの識別子
-                null,                       //エッジのラベル
-                vertexs.get(dependSkillId),   //エッジの始点となるノード
-                vertexs.get(skill.skillId), //エッジの終点となるノード
-                null                        //エッジのスタイル
+                null,                       // エッジの識別子
+                null,                       // エッジのラベル
+                vertexs.get(dependSkillId), // エッジの始点となるノード
+                vertexs.get(skill.skillId), // エッジの終点となるノード
+                null                        // エッジのスタイル
             );
           }
         }
@@ -194,7 +150,13 @@ export default {
       } finally {
         this.graph.getModel().endUpdate();
       }
-    }
+    },
+
+    // taskIdを元に、selectedSkillとtaskListを更新する
+    showSkillInfo: function (skillId){
+      this.selectedSkill = this.skillTreeApp.getSkillById(this.character_id, skillId);
+      this.taskList = this.taskApp.getAllTasksBySkillId(skillId);
+    },
   }
 }
 </script>
