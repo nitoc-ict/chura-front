@@ -14,7 +14,7 @@ import { CharacterDTO } from '../application/dto/CharacterDTO';
 import { Character } from '../domain/character/Character';
 import { CharacterId } from '../domain/character/value/CharacterId';
 import { CharacterName } from '../domain/character/value/CharacterName';
-import { InjectionConfig } from '../views/controller/InjectionConfig';
+import { GetDI } from '../views/controller/GetDI';
 
 export default {
   name: 'CharacterView',
@@ -48,7 +48,7 @@ export default {
      * @param {String} id
      */
     async updateCharacter(id) {
-      const di = InjectionConfig.getInstance();
+      const di = GetDI.getInstance();
       const characterApp = di.characterApplication;
       const characterDTO = await characterApp.getCharacterById(id);
       this.character_dto = characterDTO;

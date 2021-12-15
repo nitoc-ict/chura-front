@@ -6,7 +6,7 @@ import { CharacterApplicationService } from "../../application/CharacterApplicat
 import { SkillTreeApplicationService } from "../../application/SkillTreeApplicationService";
 import { TaskApplicationService } from "../../application/TaskApplicationService";
 
-export class InjectionConfig {
+export class GetDI {
 
     static instance;
 
@@ -39,12 +39,12 @@ export class InjectionConfig {
     }
 
     /**
-     * @return {InjectionConfig}
+     * @return {GetDI}
      */
     static getInstance() {
-        if (!(InjectionConfig.instance instanceof InjectionConfig)) {
-            InjectionConfig.instance = new InjectionConfig();
+        if (!(GetDI.instance instanceof GetDI)) {
+            GetDI.instance = new GetDI();
         }
-        return InjectionConfig.instance;
+        return GetDI.instance;
     }
 }

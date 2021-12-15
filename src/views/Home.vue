@@ -21,7 +21,7 @@
 <script>
 import CharacterButton from "@/components/CharacterButton.vue";
 import CharacterView from "@/components/CharacterView.vue";
-import { InjectionConfig } from "./controller/InjectionConfig";
+import { GetDI } from "./controller/GetDI";
 export default {
   name: 'Home',
   components: {
@@ -35,7 +35,7 @@ export default {
     }
   },
   created: async function() {
-    const di = InjectionConfig.getInstance();
+    const di = GetDI.getInstance();
     const characterApp = di.characterApplication;
     this.characters = await characterApp.getAllCharacterIds();
     this.character_id = this.characters[0];

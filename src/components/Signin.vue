@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { InjectionConfig } from '../views/controller/InjectionConfig';
+import { GetDI } from '../views/controller/GetDI';
 
 export default {
   name: 'Signin',
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     signIn: function () {
-      const di = InjectionConfig.getInstance();
+      const di = GetDI.getInstance();
       const authApplication = di.authApplication;
       authApplication.signInWithEmailAndPassword(this.username, this.password).then(
         user => {
