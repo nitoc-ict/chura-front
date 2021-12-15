@@ -13,6 +13,8 @@ import { SkillRepository } from './infrastructure/repository/SkillRepository';
 import { TaskApplicationService } from './application/TaskApplicationService';
 import { TaskRepository } from './infrastructure/repository/TaskRepository';
 import { SkillTreeApplicationService } from './application/SkillTreeApplicationService';
+import { FirebaseAuthRepository } from './infrastructure/repository/FirebaseAuthRepository';
+import { AuthApplicationService } from './application/AuthApplicationService';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAk8QXcTK4ZUe1CvTU9uYvceieuHEu_HSk",
@@ -42,18 +44,22 @@ const taskRepository = new TaskRepository(
   firestore,
   firebaseAuth
 );
+const authRepository = new FirebaseAuthRepository(
+  firebaseAuth
+);
 
 const characterApplication = new CharacterApplicationService(
   characterRepository,
   characterFactory
 );
-
 const skillApplication = new SkillTreeApplicationService(
   skillRepository
 );
-
 const taskApplication = new TaskApplicationService(
   taskRepository
+);
+const authApplication = new AuthApplicationService(
+  authRepository
 );
 
 const di = InjectionConfig.getInstance();
@@ -61,6 +67,7 @@ const di = InjectionConfig.getInstance();
 di.injectCharacterApplication(characterApplication);
 di.injectSkillTreeApplication(skillApplication);
 di.injectTaskApplication(taskApplication);
+di.injectAuthApplication(authApplication);
 
 Vue.config.productionTip = false;
 

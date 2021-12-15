@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 //@ts-check
 // JSDoc用にno-unused-varsを非表示
+import { AuthApplicationService } from "../../application/AuthApplicationService";
 import { CharacterApplicationService } from "../../application/CharacterApplicationService";
 import { SkillTreeApplicationService } from "../../application/SkillTreeApplicationService";
 import { TaskApplicationService } from "../../application/TaskApplicationService";
@@ -28,6 +29,13 @@ export class InjectionConfig {
      */
     injectTaskApplication(taskApplication) {
         this.taskApplication = taskApplication;
+    }
+
+    /**
+     * @param {AuthApplicationService} authApplication
+     */
+    injectAuthApplication(authApplication) {
+        this.authApplication = authApplication;
     }
 
     /**
