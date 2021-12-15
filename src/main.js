@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import { setUp } from './InjectionConfig';
 import router from './router'
+import vuetify from './plugins/vuetify'
 
 // Initialize
 setUp();

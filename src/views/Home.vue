@@ -6,11 +6,13 @@
     </div>
   </div>
 
-  <div class="character-buttons">
-    <div v-for="character_id in characters" :key="character_id.key">
-      <CharacterButton @click.native="onSelectCharacter(character_id)" :character_data=character_id></CharacterButton>
-    </div>
-  </div>
+  <v-row class="character-buttons">
+    <v-col>
+      <div v-for="character_id in characters" :key="character_id.key">
+        <CharacterButton @click.native="onSelectCharacter(character_id)" :character_data=character_id></CharacterButton>
+      </div>
+    </v-col>
+  </v-row>
 
   <div class="character-view">
     <CharacterView :character_id=character_id></CharacterView>
@@ -18,6 +20,7 @@
 
   <div class="progress-tree-chart">
     <SkillTreeChart
+        :character_id=character_id
     ></SkillTreeChart>
   </div>
 </div>
@@ -27,14 +30,14 @@
 import CharacterButton from "@/components/CharacterButton.vue";
 import CharacterView from "@/components/CharacterView.vue";
 import { GetDI } from "./controller/GetDI";
-import SkillTreeChart from "@/components/SkillTreeChart.vue"
-import { InjectionConfig } from "./controller/InjectionConfig";
+import SkillTreeChart from "@/components/SkillTreeChart.vue";
+
 export default {
   name: 'Home',
   components: {
     CharacterButton,
     CharacterView,
-    SkillTreeChart: SkillTreeChart
+    SkillTreeChart,
   },
   data: function() {
     return {
