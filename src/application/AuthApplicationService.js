@@ -47,7 +47,7 @@ export class AuthApplicationService {
      async signInWithEmailAndPassword(emailStr, passwordStr) {
         const email = new EmailAddress(emailStr);
         const password = new Password(passwordStr);
-        const userCredential = await this.authRepository.registerWithEmailAndPassword(
+        const userCredential = await this.authRepository.signInWithEmailAndPassword(
             email,
             password
         );
