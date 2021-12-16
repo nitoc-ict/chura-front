@@ -5,17 +5,14 @@ import { SkillDesctiption } from "../../domain/skilltree/skill/value/SkillDescri
 import { SkillId } from "../../domain/skilltree/skill/value/SkillId";
 import { SkillTitle } from "../../domain/skilltree/skill/value/SkillTitle";
 import { collection, doc, Firestore, getDoc, getDocs, query, where } from "firebase/firestore";
-import { Auth } from "firebase/auth";
 
 export class SkillRepository {
 
     /**
      * @param {Firestore} firestore
-     * @param {Auth} firebaseAuth
      */
-    constructor(firestore, firebaseAuth) {
+    constructor(firestore) {
         this.firestore = firestore;
-        this.firebaseAuth = firebaseAuth;
     }
 
     /**
@@ -33,41 +30,35 @@ export class SkillRepository {
     }
 
     /**
-     * 固有IDからSkillを取得
-     * @param {String} characterId
-     * @param {String} skillId
-     * @return {Promise<Skill>}
-     */
-    async getSkillById(characterId, skillId) {
-        const snapshot = await getDoc(doc(
-            this.firestore,
-            "users",
-            this.firebaseAuth.currentUser.uid,
-            "characters",
-            characterId,
-            "skilltrees",
-            skillId
-        ));
-        const skill = this.toSkill(snapshot.id, snapshot.data());
-        return skill;
-    }
-
-    /**
-     * SkillIdの配列を取得
+     * Characterの固有IDからすべてのSkillの固有IDを取得
      * @param {String} characterId
      * @return {Promise<Array<String>>}
      */
-    async getSkillTreeById(characterId) {
-        const snapshot = await getDocs(collection(
+    async getAllSkillIdsByCharacterId(characterId) {
+        const skillCol = collection(
             this.firestore,
-            "users",
-            this.firebaseAuth.currentUser.uid,
             "characters",
             characterId,
-            "skilltrees"
-        ));
-        const skillTree = snapshot.docs.map((doc) => doc.id);
-        return skillTree;
+            "skills",
+        );
+        const snapshot = await getDocs(skillCol);
+        const allSkillIds = snapshot.docs.map((doc) => doc.id);
+        return allSkillIds;
     }
-    
+
+    /**
+     * Characterの固有IDとSkillの固有IDからSkillを取得
+     * @param {String} skillId
+     * @return {Promise<Skill>}
+     */
+     async getSkillById(skillId) {
+        const docRef = doc(
+            this.firestore,
+            "skills",
+            skillId
+        );
+        const snapshot = await getDoc(docRef);
+        const skill = this.toSkill(skillId, snapshot.data());
+        return skill;
+    }
 }

@@ -7,7 +7,6 @@ import { CharacterApplicationService } from "./application/CharacterApplicationS
 import { CharacterRepository } from "./infrastructure/repository/CharacterRepository";
 import { CharacterFactory } from './infrastructure/CharacterFactory';
 import { SkillRepository } from './infrastructure/repository/SkillRepository';
-import { TaskApplicationService } from './application/TaskApplicationService';
 import { TaskRepository } from './infrastructure/repository/TaskRepository';
 import { SkillTreeApplicationService } from './application/SkillTreeApplicationService';
 import { FirebaseAuthRepository } from './infrastructure/repository/FirebaseAuthRepository';
@@ -20,12 +19,12 @@ const firebaseAuth = getAuth(firebaseApp);
 
 const characterFactory = new CharacterFactory();
 const characterRepository = new CharacterRepository(
-  firestore
+  firestore,
+  firebaseAuth
 );
 
 const skillRepository = new SkillRepository(
-  firestore,
-  firebaseAuth
+  firestore
 );
 const taskRepository = new TaskRepository(
   firestore,
@@ -39,10 +38,8 @@ const characterApplication = new CharacterApplicationService(
   characterRepository,
   characterFactory
 );
-const skillApplication = new SkillTreeApplicationService(
-  skillRepository
-);
-const taskApplication = new TaskApplicationService(
+const skillTreeApplication = new SkillTreeApplicationService(
+  skillRepository,
   taskRepository
 );
 const authApplication = new AuthApplicationService(
@@ -53,7 +50,6 @@ export function setUp() {
     const di = GetDI.getInstance();
     // 依存性注入
     di.injectCharacterApplication(characterApplication);
-    di.injectSkillTreeApplication(skillApplication);
-    di.injectTaskApplication(taskApplication);
+    di.injectSkillTreeApplication(skillTreeApplication);
     di.injectAuthApplication(authApplication);
 }

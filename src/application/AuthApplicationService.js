@@ -32,11 +32,18 @@ export class AuthApplicationService {
     async registerWithEmailAndPassword(emailStr, passwordStr) {
         const email = new EmailAddress(emailStr);
         const password = new Password(passwordStr);
-        const userCredential = await this.authRepository.registerWithEmailAndPassword(
-            email,
-            password
-        );
-        return userCredential;
+        const userCredential = (async () => {
+            try {
+                return await this.authRepository.registerWithEmailAndPassword(
+                    email,
+                    password
+                );
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+        return userCredential();
     }
 
     /**
@@ -47,11 +54,18 @@ export class AuthApplicationService {
      async signInWithEmailAndPassword(emailStr, passwordStr) {
         const email = new EmailAddress(emailStr);
         const password = new Password(passwordStr);
-        const userCredential = await this.authRepository.signInWithEmailAndPassword(
-            email,
-            password
-        );
-        return userCredential;
+        const userCredential = (async () => {
+            try {
+                return await this.authRepository.signInWithEmailAndPassword(
+                    email,
+                    password
+                );
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+        return userCredential();
     }
 
     async signOut() {

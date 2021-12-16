@@ -31,26 +31,9 @@ export class CharacterApplicationService {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        const character = await this.characterRepository.getById(id);
+        const character = await this.characterRepository.getCharacterById(id);
         const characterDTO = new CharacterDTO(character);
         return characterDTO;
-    }
-
-    /**
-     * 取得したすべてのCharacterをDTOへ変換し、提供
-     * @return {Array<CharacterDTO>}
-     */
-    getAllCharacters() {
-        if (!(this.characterRepository instanceof CharacterRepository)) {
-            throw "This instance is not CharacterRepository.";
-        }
-        const characters = this.characterRepository.getAllData();
-        const characterDTOList = [];
-
-        for (const id in characters) {
-            characterDTOList.push(new CharacterDTO(characters[id]));
-        }
-        return characterDTOList;
     }
 
     /**
@@ -61,15 +44,6 @@ export class CharacterApplicationService {
         if (!(this.characterRepository instanceof CharacterRepository)) {
             throw "This instance is not CharacterRepository.";
         }
-        return await this.characterRepository.getAllIds();
-    }
-
-    /**
-     * 入力された名前のCharacterを生成し、保存
-     * @param {String} name
-     */
-    saveCharacter(name) {
-        const character = this.characterFactory.create(name);
-        this.characterRepository.save(character);
+        return await this.characterRepository.getAllCharacterIds();
     }
 }

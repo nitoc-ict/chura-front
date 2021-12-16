@@ -12,5 +12,7 @@ export class CharacterDTO {
         this.characterId = character.id.value;
         /** @type {String} characterName */
         this.characterName = character.name.value;
+        /** @type {Number} codingTime */
+        this.codingTime = character.codingTime.value;
     }
 }

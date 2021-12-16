@@ -4,79 +4,74 @@ import { CharacterId } from "../../domain/character/value/CharacterId.js";
 import { CharacterName } from "../../domain/character/value/CharacterName.js";
 /* eslint-disable no-unused-vars */
 import { collection, doc, Firestore, getDoc, getDocs, query, where } from "firebase/firestore";
+import { CodingTime } from "../../domain/character/value/CodingTime.js";
+import { Auth } from "firebase/auth";
 
 export class CharacterRepository {
 
     /**
      * @param {Firestore} firestore
+     * @param {Auth} firebaseAuth
      */
-    constructor(firestore) {
+     constructor(firestore, firebaseAuth) {
         this.firestore = firestore;
+        this.firebaseAuth = firebaseAuth;
     }
 
     /**
      * CharacterをEntityへ変換
      * @param {String} id
-     * @param {object} data
+     * @param {Object} characterData
+     * @param {Object} userData
      * @return {Character}
      */
-    toCharacter(id, data) {
+    toCharacter(id, characterData, userData) {
         return new Character(
             new CharacterId(id),
-            new CharacterName(data["name"])
+            new CharacterName(characterData["name"]),
+            new CodingTime(userData["codingTime"])
         );
-    }
-
-    /**
-     * 固有IDからCharacterを取得
-     * @param {String} id
-     * @return {Promise<Character>}
-     */
-    async getById(id) {
-        const docRef = doc(this.firestore, "characters", id);
-        const docSnap = await getDoc(docRef);
-        const data = docSnap.data();
-        if (!docSnap.exists()) {
-            throw "DocumentSnap is not exists."
-        }
-
-        return this.toCharacter(id, data);
-    }
-
-    /**
-     * すべてのCharacterを取得
-     * @return {Promise<Array<Character>>}
-     */
-    async getAllData() {
-        const allCharacters = [];
-        const querySnapshot = await getDocs(collection(this.firestore, "characters"));
-        querySnapshot.forEach((doc) => {
-            allCharacters.push(this.toCharacter(doc.id, doc.data()));
-        });
-        return allCharacters;
     }
 
     /**
      * すべてのCharacterの固有IDを取得
      * @return {Promise<Array<String>>}
      */
-    async getAllIds() {
-        const allCharacterIds = [];
-        const snapshot = await getDocs(collection(this.firestore, "characters"));
-        snapshot.docs.forEach((doc) => {
-            allCharacterIds.push(doc.id);
-        });
+    async getAllCharacterIds() {
+        const characterCol = collection(
+            this.firestore,
+            "characters"
+        );
+        const snapshot = await getDocs(characterCol);
+        const allCharacterIds = snapshot.docs.map((doc) => doc.id);
         return allCharacterIds;
     }
 
     /**
-     * Characterを保存
-     * TODO: Character Entityを永続化処理する工程が必要
-     * @param {Character} character
+     * 固有IDからCharacterを取得
+     * @return {Promise<Character>}
      */
-    save(character) {
-        if (character instanceof Character) {
-            return;
+    async getCharacterById(characterId) {
+        const characterDoc = doc(
+            this.firestore,
+            "characters",
+            characterId
+        );
+        const userDoc = doc(
+            this.firestore,
+            "users",
+            this.firebaseAuth.currentUser.uid,
+            "characters",
+            characterId
+        );
+        const characterSnapshot = await getDoc(characterDoc);
+        const userSnapshot = await getDoc(userDoc);
+        const characterData = characterSnapshot.data();
+        const userData = userSnapshot.data();
+        if (!characterSnapshot.exists()) {
+            throw "DocumentSnap is not exists."
         }
+
+        return this.toCharacter(characterId, characterData, userData);
     }
 }

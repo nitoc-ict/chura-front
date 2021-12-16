@@ -4,7 +4,6 @@
 import { AuthApplicationService } from "../../application/AuthApplicationService";
 import { CharacterApplicationService } from "../../application/CharacterApplicationService";
 import { SkillTreeApplicationService } from "../../application/SkillTreeApplicationService";
-import { TaskApplicationService } from "../../application/TaskApplicationService";
 
 export class GetDI {
 
@@ -22,13 +21,6 @@ export class GetDI {
      */
     injectSkillTreeApplication(skillTreeApplication) {
         this.skillTreeApplication = skillTreeApplication;
-    }
-
-    /**
-     * @param {TaskApplicationService} taskApplication
-     */
-    injectTaskApplication(taskApplication) {
-        this.taskApplication = taskApplication;
     }
 
     /**
