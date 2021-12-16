@@ -14,6 +14,7 @@ import { CharacterDTO } from '../application/dto/CharacterDTO';
 import { Character } from '../domain/character/Character';
 import { CharacterId } from '../domain/character/value/CharacterId';
 import { CharacterName } from '../domain/character/value/CharacterName';
+import { CodingTime } from '../domain/character/value/CodingTime';
 import { GetDI } from '../views/controller/GetDI';
 
 export default {
@@ -29,7 +30,8 @@ export default {
       character_dto: new CharacterDTO(
         new Character(
           new CharacterId(this.character_id),
-          new CharacterName("")
+          new CharacterName(""),
+          new CodingTime(0)
         )
       ),
       character_id_value: this.character_id
