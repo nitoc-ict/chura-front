@@ -1,7 +1,7 @@
 //@ts-check
 /* eslint-disable no-unused-vars */
 import { Skill } from "../../domain/skilltree/skill/Skill";
-import { SkillDesctiption } from "../../domain/skilltree/skill/value/SkillDescription";
+import { SkillDescription } from "../../domain/skilltree/skill/value/SkillDescription";
 import { SkillId } from "../../domain/skilltree/skill/value/SkillId";
 import { SkillTitle } from "../../domain/skilltree/skill/value/SkillTitle";
 import { collection, doc, Firestore, getDoc, getDocs, query, where } from "firebase/firestore";
@@ -23,7 +23,7 @@ export class SkillRepository {
         return new Skill(
             new SkillId(id),
             new SkillTitle(data["title"]),
-            new SkillDesctiption(data["description"]),
+            new SkillDescription(data["description"]),
             data["taskIds"],
             data["dependentSkillIds"]
         );

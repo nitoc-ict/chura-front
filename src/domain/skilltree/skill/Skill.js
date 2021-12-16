@@ -1,6 +1,6 @@
 //@ts-check\
 /* eslint-disable no-unused-vars */
-import { Desctiption, SkillDesctiption } from "./value/SkillDescription.js";
+import { Desctiption, SkillDescription } from "./value/SkillDescription.js";
 import TaskId from "../task/value/TaskId.js";
 import { SkillTitle } from "./value/SkillTitle.js";
 import { SkillId } from "./value/SkillId.js";
@@ -9,14 +9,14 @@ export class Skill {
     /**
      * @param {SkillId} id
      * @param {SkillTitle} title
-     * @param {Desctiption} description
+     * @param {SkillDescription} description
      * @param {Array<String>} taskIds
      * @param {Array<String>} dependentSkillIds
      */
     constructor(id, title, description, taskIds, dependentSkillIds) {
         if (!(id instanceof SkillId)) throw "ID is not SkillId.";
         if (!(title instanceof SkillTitle)) throw "Title is not SkillTitle.";
-        if (!(description instanceof SkillDesctiption)) throw "Description is not SkillDescription.";
+        if (!(description instanceof SkillDescription)) throw "Description is not SkillDescription.";
         this.id = id;
         this.title = title;                     //スキルの名前
         this.description = description;         //スキルの説明

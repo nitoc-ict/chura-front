@@ -1,6 +1,6 @@
 //@ts-check
 
-export class SkillDesctiption {
+export class SkillDescription {
     /**
      * @param {String} value
      */
