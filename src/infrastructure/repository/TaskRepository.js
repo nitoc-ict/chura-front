@@ -20,70 +20,70 @@ export class TaskRepository {
 
     /**
      * @param {String} id
-     * @param {Object} data
+     * @param {Object} taskData
+     * @param {Object} userData
      */
-    toTask(id, data) {
+    toTask(id, taskData, userData) {
         return new Task(
             new TaskId(id),
-            new TaskTitle(data["title"]),
-            new TaskDescription(data["description"]),
-            data["isDone"]
+            new TaskTitle(taskData["title"]),
+            new TaskDescription(taskData["description"]),
+            userData["isDone"]
         );
+    }
+
+    /**
+     * @param {String} characterId
+     * @return {Promise<Array<String>>}
+     */
+    async getAllTaskIdsByCharacterId(characterId) {
+        const taskCol = collection(
+            this.firestore,
+            "characters",
+            characterId,
+            "tasks"
+        );
+        const snapshot = await getDocs(taskCol);
+        const taskIds = snapshot.docs.map((doc) => doc.id);
+        return taskIds;
     }
 
     /**
      * 固有IDからTaskを取得
-     * @param {String} skillId
      * @param {String} taskId
      * @return {Promise<Task>}
      */
-    async getTaskById(skillId, taskId) {
-        const snapshot = await getDoc(doc(
+     async getTaskById(taskId) {
+        const taskDoc = doc(
+            this.firestore,
+            "tasks",
+            taskId
+        );
+        const userDoc = doc(
             this.firestore,
             "users",
             this.firebaseAuth.currentUser.uid,
             "tasks",
-            skillId
-        ));
-        const data = snapshot.data()[taskId];
-        const task = this.toTask(taskId, data);
+            taskId
+        );
+        const taskSnapshot = await getDoc(taskDoc);
+        const userSnapshot = await getDoc(userDoc);
+        const task = this.toTask(taskId, taskSnapshot.data(), userSnapshot.data());
         return task;
     }
 
     /**
-     * TaskIdの配列を取得
-     * @param {String} skillId
-     * @return {Promise<Array<String>>}
+     * @param {String} taskId
+     * @param {Boolean} isDone
      */
-    async getAllTaskIdsBySkillId(skillId) {
-        const snapshot = await getDocs(collection(
+     async setTaskIsDone(taskId, isDone) {
+        const docRef = doc(
             this.firestore,
             "users",
             this.firebaseAuth.currentUser.uid,
             "tasks",
-            skillId
-        ));
-        const tasks = snapshot.docs.map((doc) => doc.id);
-        return tasks;
-    }
-
-    /**
-     * @param {String} skillId
-     * @param {String} taskId
-     * @param {Boolean} isDone
-     */
-    async setTaskIsDone(skillId, taskId, isDone) {
-        await updateDoc(doc(
-                this.firestore,
-                "users",
-                this.firebaseAuth.currentUser.uid,
-                "tasks",
-                skillId,
-                taskId
-            ),
-            {
-                "isDone": isDone
-            }
+            taskId
         );
+        await updateDoc(docRef, {"isDone": isDone});
     }
 }
