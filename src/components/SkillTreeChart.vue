@@ -114,7 +114,7 @@ export default {
       this.graph.getModel().beginUpdate();
 
       //グラフ内のノードとエッジを全部削除
-      this.graph.removeCells()
+      this.graph.removeCells(this.graph.getChildCells(this.parent));
 
       try {
         for(const skill of skillTree) {
@@ -153,9 +153,10 @@ export default {
     },
 
     // taskIdを元に、selectedSkillとtaskListを更新する
-    showSkillInfo: function (skillId){
-      this.selectedSkill = this.skillTreeApp.getSkillById(this.character_id, skillId);
-      this.taskList = this.taskApp.getAllTasksBySkillId(skillId);
+    showSkillInfo: async function (skillId){
+      this.selectedSkill = await this.skillTreeApp.getSkillById(this.character_id, skillId);
+      this.taskList = await this.taskApp.getAllTasksBySkillId(skillId);
+      console.log(this.taskList);
     },
   }
 }
