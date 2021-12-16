@@ -5,6 +5,7 @@ import router from './router'
 
 // Initialize
 setUp();
+
 Vue.config.productionTip = false;
 
 new Vue({
