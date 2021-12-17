@@ -1,36 +1,48 @@
 <template>
-  <div>
-    <v-container>
-      <v-row>
-        <v-col
-            cols="8"
-            style="padding: 24px; background-color: antiquewhite"
+  <v-container>
+    <v-row
+        dense
+    >
+      <v-col
+          cols="8"
+      >
+        <div
+            id="graphContainer"
+            ref="skillTreeContainer"
+            style="
+              padding: 16px;
+              border: solid 1px black;
+              border-radius: 8px;
+            "
+        ></div>
+      </v-col>
+      <v-col
+          cols="4"
+      >
+        <div
+            style="
+              padding: 16px;
+              border: solid 1px black;
+              border-radius: 8px;
+            "
         >
-          <div
-              id="graphContainer"
-              ref="skillTreeContainer"
-          ></div>
-        </v-col>
-        <v-col
-            cols="4"
-            style="padding: 24px; background-color: darkcyan;"
-        >
-          <p>{{selectedSkill.skillTitle}}</p>
-          <p>{{selectedSkill.skillDescription}}</p>
+          <p>{{ selectedSkill.skillTitle }}</p>
+          <p>{{ selectedSkill.skillDescription }}</p>
           <v-row
-              v-for="(task, index) in taskList" :key = "index"
+              v-for="(task, index) in taskList" :key="index"
           >
             <v-checkbox
                 :label="task.taskTitle"
                 v-model="task.isDone"
                 @change="updateTaskIsDone(task.taskId, task.isDone)"/>
-            <p>{{task.taskDescription}}</p>
+            <p>{{ task.taskDescription }}</p>
           </v-row>
+        </div>
+        <v-spacer/>
 
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -50,7 +62,7 @@ export default {
       type: String,
     }
   },
-  data: function(){
+  data: function () {
     return {
       container: null,    // SkillTreeを描画する要素のインスタンスを取得
       graph: null,        // MxGraphのインスタンスを格納する為の変数
@@ -70,7 +82,7 @@ export default {
   },
   watch: {
     // propsで渡されているcharacter_idに変更があった場合は、グラフを再描画する
-    character_id: async function(newId) {
+    character_id: async function (newId) {
       await this.drawGraph(newId);
     },
   },
@@ -81,7 +93,7 @@ export default {
   },
   methods: {
     // SkillとTaskのApplicationServiceを取得する。
-    initAppService: function (){
+    initAppService: function () {
       const di = GetDI.getInstance();
       this.skillTreeApp = di.skillTreeApplication;
     },
@@ -122,7 +134,7 @@ export default {
 
       try {
         // SkillDTOをノードとしてGraph上に追加
-        for(const skill of skillTree) {
+        for (const skill of skillTree) {
           const vertex = this.graph.insertVertex(
               this.parent,
               skill.skillId,    // ノードの識別子
@@ -139,7 +151,7 @@ export default {
         }
 
         // Graph上に追加したSkillDTOのノード同士を、SkillDTOの依存関係を元にEdgeで繋げる処理
-        for(const skill of skillTree) {
+        for (const skill of skillTree) {
           // ノードとノードをつなげるEdgeを追加
           for (const dependSkillId of skill.dependentSkillIds) {
             this.graph.insertEdge(
@@ -158,14 +170,12 @@ export default {
       }
     },
 
-    updateTaskIsDone: function(taskId, isDone){
-      console.log(taskId)
-      console.log(isDone)
+    updateTaskIsDone: function (taskId, isDone) {
       this.skillTreeApp.setTaskIsDone(taskId, isDone);
     },
 
     // taskIdを元に、selectedSkillとtaskListを更新する
-    showSkillInfo: async function (skillId){
+    showSkillInfo: async function (skillId) {
       this.selectedSkill = await this.skillTreeApp.getSkillById(skillId);
       this.taskList = await this.skillTreeApp.getTasksBySkillId(skillId);
     },
