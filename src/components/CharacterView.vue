@@ -6,6 +6,7 @@
     <div class="character-name-view">
       選択されたキャラのNAME: {{ character_dto.characterName }}
     </div>
+    <p>コーディング時間：{{ character_dto.codingTime }}分</p>
   </div>
 </template>
 
