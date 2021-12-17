@@ -18,10 +18,12 @@
           <p>{{selectedSkill.skillTitle}}</p>
           <p>{{selectedSkill.skillDescription}}</p>
           <v-row
-              v-for="(task, index) in taskList" :key = index
+              v-for="(task, index) in taskList" :key = "index"
           >
-            <p>Task</p>
-            <p>{{task.taskTitle}}</p>
+            <v-checkbox
+                :label="task.taskTitle"
+                v-model="task.isDone"
+                @change="updateTaskIsDone(task.taskId, task.isDone)"/>
             <p>{{task.taskDescription}}</p>
           </v-row>
 
@@ -76,7 +78,6 @@ export default {
   mounted: async function () {
     await this.initAppService();
     await this.initGraph();
-    await this.drawGraph(this.character_id);
   },
   methods: {
     // SkillとTaskのApplicationServiceを取得する。
@@ -157,11 +158,16 @@ export default {
       }
     },
 
+    updateTaskIsDone: function(taskId, isDone){
+      console.log(taskId)
+      console.log(isDone)
+      this.skillTreeApp.setTaskIsDone(taskId, isDone);
+    },
+
     // taskIdを元に、selectedSkillとtaskListを更新する
     showSkillInfo: async function (skillId){
       this.selectedSkill = await this.skillTreeApp.getSkillById(skillId);
       this.taskList = await this.skillTreeApp.getTasksBySkillId(skillId);
-      console.log(this.taskList);
     },
   }
 }
