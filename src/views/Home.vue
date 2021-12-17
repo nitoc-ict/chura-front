@@ -105,6 +105,7 @@ export default {
   },
   mounted: async function() {
     await this.fetchAllCharacter();
+    this.updateSelectedCharacter(this.characterList[0])
   },
   methods: {
     // 渡されたcharacterでthis.selectedCharacterを更新

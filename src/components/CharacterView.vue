@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <v-row dense>
+    <v-row dense
+           align="end"
+    >
       <v-col
           cols="8"
       >
@@ -8,11 +10,6 @@
             contain
             :src="character_img"
             max-height="400"
-            style="
-              padding: 16px;
-              border: solid 2px black;
-              background-color: whitesmoke;
-            "
         >
         </v-img>
       </v-col>

@@ -15,8 +15,6 @@ export default {
     }
   },
   mounted() {
-    console.log('Button')
-    console.log(this.character_dto);
   }
 }
 </script>
