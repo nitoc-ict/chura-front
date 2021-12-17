@@ -46,4 +46,16 @@ export class CharacterApplicationService {
         }
         return await this.characterRepository.getAllCharacterIds();
     }
+
+    /**
+     * @return {Promise<Array<CharacterDTO>>}
+     */
+    async getAllCharacter() {
+        const allCharacterIds = await this.getAllCharacterIds();
+        const characterDTOList = [];
+        for await (const characterId of allCharacterIds) {
+            characterDTOList.push(await this.getCharacterById(characterId));
+        }
+        return characterDTOList;
+    }
 }

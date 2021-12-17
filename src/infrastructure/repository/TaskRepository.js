@@ -1,6 +1,6 @@
 //@ts-check
 /* eslint-disable no-unused-vars */
-import { addDoc, collection, doc, Firestore, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { Auth } from "firebase/auth";
 import { Task } from "../../domain/skilltree/task/Task";
 import { TaskTitle } from "../../domain/skilltree/task/value/TaskTitle";
@@ -68,8 +68,24 @@ export class TaskRepository {
          );
          const taskSnapshot = await getDoc(taskDoc);
          const userSnapshot = await getDoc(userDoc);
+
+         if (!(userSnapshot.exists())) {
+             await this.setTaskInUser(taskId);
+         }
+
          const task = this.toTask(taskId, taskSnapshot.data(), userSnapshot.data());
          return task;
+    }
+
+    async setTaskInUser(taskId) {
+        const docRef = doc(
+            this.firestore,
+            "users",
+            this.firebaseAuth.currentUser.uid,
+            "tasks",
+            taskId
+        );
+        await setDoc(docRef(taskId));
     }
 
     /**
