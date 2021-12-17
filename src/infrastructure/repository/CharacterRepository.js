@@ -82,11 +82,11 @@ export class CharacterRepository {
             characterId
         );
         const characterSnapshot = await getDoc(characterDoc);
-        const userSnapshot = await getDoc(userDoc);
-        if (!(characterSnapshot.exists)) {
+        let userSnapshot = await getDoc(userDoc);
+        if (!(userSnapshot.exists())) {
             await this.setCharacterIdInUser(characterId);
-        } 
-
+            userSnapshot = await getDoc(userDoc);
+        }
         const characterData = characterSnapshot.data();
         const userData = userSnapshot.data();
 
@@ -101,6 +101,8 @@ export class CharacterRepository {
             "characters",
             characterId
         );
-        await setDoc(docRef(characterId));
+        await setDoc(docRef, {
+            codingTime: 0,
+        });
     }
 }

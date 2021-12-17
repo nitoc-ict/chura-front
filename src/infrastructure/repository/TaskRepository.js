@@ -67,10 +67,11 @@ export class TaskRepository {
              taskId
          );
          const taskSnapshot = await getDoc(taskDoc);
-         const userSnapshot = await getDoc(userDoc);
+         let userSnapshot = await getDoc(userDoc);
 
          if (!(userSnapshot.exists())) {
              await this.setTaskInUser(taskId);
+             userSnapshot = await getDoc(userDoc);
          }
 
          const task = this.toTask(taskId, taskSnapshot.data(), userSnapshot.data());
@@ -85,7 +86,7 @@ export class TaskRepository {
             "tasks",
             taskId
         );
-        await setDoc(docRef(taskId));
+        await setDoc(docRef, {});
     }
 
     /**
