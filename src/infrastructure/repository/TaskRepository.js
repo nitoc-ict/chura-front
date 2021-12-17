@@ -54,22 +54,22 @@ export class TaskRepository {
      * @return {Promise<Task>}
      */
      async getTaskById(taskId) {
-        const taskDoc = doc(
-            this.firestore,
-            "tasks",
-            taskId
-        );
-        const userDoc = doc(
-            this.firestore,
-            "users",
-            this.firebaseAuth.currentUser.uid,
-            "tasks",
-            taskId
-        );
-        const taskSnapshot = await getDoc(taskDoc);
-        const userSnapshot = await getDoc(userDoc);
-        const task = this.toTask(taskId, taskSnapshot.data(), userSnapshot.data());
-        return task;
+         const taskDoc = doc(
+             this.firestore,
+             "tasks",
+             taskId
+         );
+         const userDoc = doc(
+             this.firestore,
+             "users",
+             this.firebaseAuth.currentUser.uid,
+             "tasks",
+             taskId
+         );
+         const taskSnapshot = await getDoc(taskDoc);
+         const userSnapshot = await getDoc(userDoc);
+         const task = this.toTask(taskId, taskSnapshot.data(), userSnapshot.data());
+         return task;
     }
 
     /**
