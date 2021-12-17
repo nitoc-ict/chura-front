@@ -10,6 +10,7 @@
             contain
             :src="character_img"
             max-height="400"
+            style="border: solid 2px black;"
         >
         </v-img>
       </v-col>

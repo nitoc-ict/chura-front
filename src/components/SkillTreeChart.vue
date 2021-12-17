@@ -4,40 +4,51 @@
         dense
     >
       <v-col
-          cols="8"
+          cols="7"
       >
-        <div
-            id="graphContainer"
-            ref="skillTreeContainer"
-            style="
-              padding: 16px;
-              border: solid 1px black;
-              border-radius: 8px;
-            "
-        ></div>
+        <v-card
+            elevation="0"
+            style="background-color: cornsilk"
+        >
+          <v-card-title>スキルツリー</v-card-title>
+          <v-divider/>
+          <v-card-text>
+            <div
+                id="graphContainer"
+                ref="skillTreeContainer"
+            ></div>
+          </v-card-text>
+        </v-card>
       </v-col>
       <v-col
-          cols="4"
+          cols="5"
       >
-        <div
-            style="
-              padding: 16px;
-              border: solid 1px black;
-              border-radius: 8px;
-            "
+        <v-card
+            elevation="0"
+            style="background-color: mistyrose"
         >
-          <p>{{ selectedSkill.skillTitle }}</p>
-          <p>{{ selectedSkill.skillDescription }}</p>
-          <v-row
-              v-for="(task, index) in taskList" :key="index"
-          >
-            <v-checkbox
-                :label="task.taskTitle"
-                v-model="task.isDone"
-                @change="updateTaskIsDone(task.taskId, task.isDone)"/>
-            <p>{{ task.taskDescription }}</p>
-          </v-row>
-        </div>
+          <v-card-title>{{selectedSkill.skillTitle}}</v-card-title>
+          <v-card-text>
+            <v-divider/>
+            <p>{{ selectedSkill.skillDescription }}</p>
+            <v-card
+                v-for="(task, index) in taskList" :key="index"
+                elevation="1"
+                style="margin-bottom: 6px"
+            >
+              <v-card-title
+              >
+                <v-checkbox
+                    :label="task.taskTitle"
+                    v-model="task.isDone"
+                    @change="updateTaskIsDone(task.taskId, task.isDone)"/>
+              </v-card-title>
+              <v-card-text>
+                {{task.taskDescription }}
+              </v-card-text>
+            </v-card>
+          </v-card-text>
+        </v-card>
         <v-spacer/>
 
       </v-col>
