@@ -1,22 +1,48 @@
 <template>
-  <div>
-    <div class="character-id-view">
-      選択されたキャラのID: {{ character_dto.characterId }}
-    </div>
-    <div class="character-name-view">
-      選択されたキャラのNAME: {{ character_dto.characterName }}
-    </div>
-    <p>コーディング時間：{{ character_dto.codingTime }}分</p>
-  </div>
+  <v-container>
+    <v-row dense>
+      <v-col
+          cols="8"
+      >
+        <v-img
+            contain
+            :src="character_img"
+            max-height="400"
+            style="
+              padding: 16px;
+              border: solid 2px black;
+              background-color: whitesmoke;
+            "
+        >
+        </v-img>
+      </v-col>
+      <v-col
+          cols="4"
+      >
+        <div
+            style="
+              padding: 16px;
+              border: solid 2px black;
+              background-color: whitesmoke;
+            "
+        >
+          <h1>{{character_dto.characterName}}</h1>
+          <h3>コーディング時間：{{ character_dto.codingTime / 60 }}分</h3>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import { CharacterDTO } from '../application/dto/CharacterDTO';
-import { Character } from '../domain/character/Character';
-import { CharacterId } from '../domain/character/value/CharacterId';
-import { CharacterName } from '../domain/character/value/CharacterName';
-import { CodingTime } from '../domain/character/value/CodingTime';
-import { GetDI } from '../views/controller/GetDI';
+import { CharacterDTO } from '@/application/dto/CharacterDTO';
+import { Character } from '@/domain/character/Character';
+import { CharacterId } from '@/domain/character/value/CharacterId';
+import { CharacterName } from '@/domain/character/value/CharacterName';
+import { CodingTime } from '@/domain/character/value/CodingTime';
+import { GetDI } from '@/views/controller/GetDI';
+
+require('path');
 
 export default {
   name: 'CharacterView',
@@ -35,14 +61,14 @@ export default {
           new CodingTime(0)
         )
       ),
-      character_id_value: this.character_id
+      character_img: "",
     }
   },
-  created() {
-    this.updateCharacter(this.character_id_value);
+  mounted() {
+    this.updateCharacter(this.character_dto.characterId);
   },
   watch: {
-    character_id: async function(newId) {
+    character_id: function(newId) {
       this.updateCharacter(newId);
     }
   },
@@ -54,7 +80,18 @@ export default {
       const di = GetDI.getInstance();
       const characterApp = di.characterApplication;
       const characterDTO = await characterApp.getCharacterById(id);
+      this.character_img = this.getCharacterImgUri(characterDTO.characterName);
       this.character_dto = characterDTO;
+    },
+
+    getCharacterImgUri: function (name){
+      switch (name) {
+        case 'Java':
+          return "/characterImage/Java.png";
+
+        case 'Kotlin':
+          return "/characterImage/Kotlin.png";
+      }
     }
   }
 }
