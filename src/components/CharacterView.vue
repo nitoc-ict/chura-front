@@ -10,10 +10,11 @@
               border: solid 2px black;
               "
       >
+        <div
+            ref="characterSpacer"
+        />
         <v-img
             contain
-            justify="center"
-            align-self="center"
             :src="character_img"
             :max-height="character_height"
         >
@@ -86,6 +87,15 @@ export default {
       const characterDTO = await characterApp.getCharacterById(id);
       this.character_img = this.getCharacterImgUri(characterDTO.characterName);
       this.character_dto = characterDTO;
+      this.character_height = this.executeCharHeight(characterDTO.codingTime);
+      this.$refs.characterSpacer.style = ("height:" + (390 - this.character_height) + "px");
+    },
+
+    executeCharHeight: function (codingTime){
+      const height = (codingTime / 60) + 50;
+        if (height >= 400) return 400;
+
+      return height
     },
 
     getCharacterImgUri: function (name){
