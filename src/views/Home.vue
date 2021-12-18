@@ -3,7 +3,8 @@
     <v-row class="character-buttons">
       <v-col 
       cols="1" 
-      justify="center">
+      justify="center"
+      align-self="center">
         <v-img
         src="/headerImg/Java.png"
         @click.native="updateSelectedCharacter(characterList[0])"
@@ -12,7 +13,8 @@
       </v-col>
       <v-col 
       cols="1" 
-      justify="center">
+      justify="center"
+      align-self="center">
         <v-img
         src="/headerImg/Kotlin.png"
         @click.native="updateSelectedCharacter(characterList[1])"
@@ -22,6 +24,7 @@
       <v-col
       cols="1"
       justify="center"
+      align-self="center"
       >
         <v-img
         src="/headerImg/Go.png"
@@ -32,6 +35,7 @@
       <v-col
       cols="1"
       justify="center"
+      align-self="center"
       >
         <v-img
         src="/headerImg/Vue.png"
@@ -42,6 +46,7 @@
       <v-col
       cols="1"
       justify="center"
+      align-self="center"
       >
         <v-img
         src="/headerImg/Python.png"
@@ -127,7 +132,7 @@ export default {
 </script>
 <style scoped>
 .character-buttons{
-  background-color: #448AFF;
+  background-color: #00aceb;
   margin: 0;
   max-height: 100px;
 }

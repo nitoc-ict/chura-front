@@ -115,7 +115,7 @@ export default {
 </script>
 <style scoped>
 .character-area{
-  border: solid 1px;
+  border: solid 2px;
   height: 400px;
 }
 .character-name{
@@ -127,7 +127,7 @@ export default {
   margin-bottom: 20px;
 }
 .character-info{
-  background-color: #B9DFFF;
+  background-color: #d4ebec;
   margin-right: 10px;
   margin-bottom: 10px;
 }

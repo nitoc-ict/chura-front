@@ -8,7 +8,7 @@
       >
         <v-card
             elevation="0"
-            style="background-color:#EDE7F6"
+            style="background-color:#ffefd3"
         >
           <v-card-title>スキルツリー</v-card-title>
           <v-divider/>
@@ -26,13 +26,14 @@
       >
         <v-card
             elevation="0"
-            style="background-color: mistyrose"
+            style="background-color: #72c6c7"
         >
           <v-card-title>{{selectedSkill.skillTitle}}</v-card-title>
           <v-card-text>
             <v-divider/>
             <p>{{ selectedSkill.skillDescription }}</p>
             <v-card
+            
                 v-for="(task, index) in taskList" :key="index"
                 elevation="1"
                 style="margin-bottom: 6px"
