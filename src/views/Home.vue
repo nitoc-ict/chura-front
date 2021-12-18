@@ -39,6 +39,16 @@
         max-width="70"
         ></v-img>
       </v-col>
+      <v-col
+      cols="1"
+      justify="center"
+      >
+        <v-img
+        src="/headerImg/Python.png"
+        @click.native="updateSelectedCharacter(characterList[2])"
+        max-width="70"
+        ></v-img>
+      </v-col>
     </v-row>
   <div class="character-view">
     <CharacterView

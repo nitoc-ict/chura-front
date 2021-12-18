@@ -2,13 +2,10 @@
   <v-container>
     <v-row dense
            align="end"
+           class="character-area"
     >
       <v-col
           cols="8"
-          style="
-              height: 400px;
-              border: solid 2px black;
-              "
       >
         <div
             ref="characterSpacer"
@@ -20,20 +17,20 @@
         >
         </v-img>
       </v-col>
-      <v-col
-          cols="4"
-      >
-        <div
-            style="
-              padding: 16px;
-              border: solid 2px black;
-              background-color: whitesmoke;
-            "
-        >
-          <h1>{{character_dto.characterName}}</h1>
-          <h3>コーディング時間：{{ character_dto.codingTime / 60 }}分</h3>
-        </div>
-      </v-col>
+    <v-col
+    class="character-info"
+    >
+    <v-row
+    justify="center"
+    class="character-name">
+      <p >{{character_dto.characterName}}</p>
+    </v-row>
+    <v-row
+    justify="center"
+    class="cording-time">
+      <p>コーディング時間：{{ character_dto.codingTime / 60 }}分</p>
+    </v-row>
+    </v-col>
     </v-row>
   </v-container>
 </template>
@@ -116,3 +113,22 @@ export default {
   }
 }
 </script>
+<style scoped>
+.character-area{
+  border: solid 1px;
+  height: 400px;
+}
+.character-name{
+  font-size: 40px;
+  margin-top: 20px;
+}
+.cording-time{
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.character-info{
+  background-color: #B9DFFF;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+</style>

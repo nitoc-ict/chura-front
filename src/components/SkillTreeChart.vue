@@ -8,7 +8,7 @@
       >
         <v-card
             elevation="0"
-            style="background-color: cornsilk"
+            style="background-color:#EDE7F6"
         >
           <v-card-title>スキルツリー</v-card-title>
           <v-divider/>
