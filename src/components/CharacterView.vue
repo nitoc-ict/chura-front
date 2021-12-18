@@ -55,6 +55,9 @@ export default {
       type: String,
       default: ""
     },
+    charaNoDekasa: {
+      default: 1
+    }
   },
   data: function() {
     return {
@@ -75,6 +78,9 @@ export default {
   watch: {
     character_id: function(newId) {
       this.updateCharacter(newId);
+    },
+    charaNoDekasa: function () {
+      this.updateCharacter(this.character_id)
     }
   },
   methods: {
@@ -92,7 +98,7 @@ export default {
     },
 
     executeCharHeight: function (codingTime){
-      const height = (codingTime / 60) + 50;
+      const height = (codingTime / 60) + (this.charaNoDekasa * 10)+ 50;
         if (height >= 400) return 400;
 
       return height

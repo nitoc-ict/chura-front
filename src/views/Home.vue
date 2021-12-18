@@ -41,12 +41,17 @@
       </v-col>
     </v-row>
   <div class="character-view">
-    <CharacterView :character_id=selectedCharacter.characterId></CharacterView>
+    <CharacterView
+        :character_id=selectedCharacter.characterId
+        :chara-no-dekasa="charNoDekasa"
+    ></CharacterView>
   </div>
 
   <div class="progress-tree-chart">
     <SkillTreeChart
         :character_id=selectedCharacter.characterId
+        :big="bigChar"
+        :small="smallChar"
     ></SkillTreeChart>
   </div>
 </v-app>
@@ -76,7 +81,8 @@ export default {
       characterApp: {   //CharacterApplicationServiceのインスタンス
         type: CharacterApplicationService,
         default: null
-      }
+      },
+      charNoDekasa: 1
     }
   },
   created: function() {
@@ -96,7 +102,16 @@ export default {
     // characterListをFirestoreから取ってくる
     fetchAllCharacter: async function(){
       this.characterList = await this.characterApp.getAllCharacter();
-    }
+    },
+
+    bigChar: function (){
+      this.charNoDekasa++;
+      console.log(this.charNoDekasa)
+    },
+    smallChar: function (){
+      this.charNoDekasa--;
+      console.log(this.charNoDekasa)
+    },
   }
 }
 </script>

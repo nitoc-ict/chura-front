@@ -72,7 +72,13 @@ export default {
   props: {
     character_id: {
       type: String,
-    }
+    },
+    big: {
+      type: Function,
+    },
+    small: {
+      type: Function,
+    },
   },
   data: function () {
     return {
@@ -186,6 +192,11 @@ export default {
     },
 
     updateTaskIsDone: function (taskId, isDone) {
+      if(isDone){
+        this.big();
+      } else {
+        this.small();
+      }
       this.skillTreeApp.setTaskIsDone(taskId, isDone);
     },
 
