@@ -22,6 +22,7 @@
       </v-col>
       <v-col
           cols="5"
+          v-if="isSkillSelected"
       >
         <v-card
             elevation="0"
@@ -81,6 +82,8 @@ export default {
 
       skillTreeApp: null, // SkillTreeApplicationServiceのインスタンスを格納する
 
+      isSkillSelected: false, // タスクが選択されているか
+
       selectedSkill: {    // 現在選択されているスキル
         type: SkillDTO,
         default: null,
@@ -94,6 +97,7 @@ export default {
   watch: {
     // propsで渡されているcharacter_idに変更があった場合は、グラフを再描画する
     character_id: async function (newId) {
+      this.isSkillSelected = false;
       await this.drawGraph(newId);
     },
   },
@@ -187,8 +191,10 @@ export default {
 
     // taskIdを元に、selectedSkillとtaskListを更新する
     showSkillInfo: async function (skillId) {
+      this.isSkillSelected = false;
       this.selectedSkill = await this.skillTreeApp.getSkillById(skillId);
       this.taskList = await this.skillTreeApp.getTasksBySkillId(skillId);
+      this.isSkillSelected = true;
     },
   }
 }
