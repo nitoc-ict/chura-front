@@ -1,68 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Signin from '../components/Signin.vue'
+import Signup from '../components/Signup.vue'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/vue',
-    name: 'Vue',
-    component: () => import('../views/VueCharacter.vue')
+    path: '/signup',
+    name: 'Signup',
+    component: Signup
   },
   {
-    path: '/python',
-    name: 'Python',
-    component: () => import('../views/PythonCharacter.vue')
+    path: '/',
+    name: 'Signin',
+    component: Signin
   },
   {
-    path: '/android',
-    name: 'Android',
-    component: () => import('../views/AndroidCharacter.vue')
-  },
-  {
-    path: '/css',
-    name: 'Css',
-    component: () => import('../views/CssCharacter.vue')
-  },
-  {
-    path: '/go',
-    name: 'Go',
-    component: () => import('../views/GoCharacter.vue')
-  },
-  {
-    path: '/html',
-    name: 'Html',
-    component: () => import('../views/HtmlCharacter.vue')
-  },
-  {
-    path: '/javascript',
-    name: 'Javascript',
-    component: () => import('../views/JavascriptCharacter.vue')
-  },
-  {
-    path: '/php',
-    name: 'Php',
-    component: () => import('../views/PhpCharacter.vue')
-  },
-  {
-    path: '/java',
-    name: 'Java',
-    component: () => import('../views/JavaCharacter.vue')
-  },
-  {
-    path: '/ruby',
-    name: 'Ruby',
-    component: () => import('../views/RubyCharacter.vue')
-  },
-  {
-    path: '/cs',
-    name: 'Cs',
-    component: () => import('../views/CsCharacter.vue')
-  },
-  {
-    path: '/swift',
-    name: 'Swift',
-    component: () => import('../views/SwiftCharacter.vue')
+    path: '/home',
+    name: 'Home',
+    component: Home
   }
 ]
 

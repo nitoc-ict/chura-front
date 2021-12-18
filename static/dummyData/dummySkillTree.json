@@ -1,0 +1,191 @@
+{
+  "skillTreeId": "AndroidApp",
+  "skills": [
+    {
+      "id": "AndroidApp_1",
+      "title": "Kotlinの基本的な文法",
+      "description": "Kotlinの基本的な文法について理解する。",
+      "tasks": [
+        {
+          "taskId": "AndroidApp_1_1",
+          "title": "基本データ型に触れよう",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_1_2",
+          "title": "様々なオブジェクトに触れよう",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_1_3",
+          "title": "条件分岐について",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_1_4",
+          "title": "ループ処理について",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_1_5",
+          "title": "理解度チェック",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }
+      ],
+      "dependentSkillIds": []
+    }, {
+      "id": "AndroidApp_2",
+      "title": "関数",
+      "description": "Kotlinの関数について理解する。",
+      "tasks": [
+        {
+          "taskId": "AndroidApp_2_1",
+          "title": "関数を定義して使ってみよう",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_2_2",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_2_3",
+          "title": "理解度チェック",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }
+      ],
+      "dependentSkillIds": [
+        "AndroidApp_1"
+      ]
+    }, {
+      "id": "AndroidApp_3",
+      "title": "クラス",
+      "description": "Kotlinのクラスについて理解する。",
+      "tasks": [
+        {
+          "taskId": "AndroidApp_3_1",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_3_2",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_3_3",
+          "title": "理解度チェック",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }
+      ],
+      "dependentSkillIds": [
+        "AndroidApp_2"
+      ]
+    }, {
+      "id": "AndroidApp_4",
+      "title": "ジェネリクス",
+      "description": "Kotlinのジェネリクスについて理解する。",
+      "tasks": [
+        {
+          "taskId": "AndroidApp_4_1",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_4_2",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_4_3",
+          "title": "理解度チェック",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }
+      ],
+      "dependentSkillIds": [
+        "AndroidApp_2"
+      ]
+    }, {
+      "id": "AndroidApp_5",
+      "title": "Null安全",
+      "description": "KotlinのNull安全について理解する。",
+      "tasks": [
+        {
+          "taskId": "AndroidApp_5_1",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_5_2",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_5_3",
+          "title": "理解度チェック",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }
+      ],
+      "dependentSkillIds": [
+        "AndroidApp_2"
+      ]
+    }, {
+      "id": "AndroidApp_6",
+      "title": "インタフェース",
+      "description": "Kotlinのインタフェースについて理解する。",
+      "tasks": [
+        {
+          "taskId": "AndroidApp_6_1",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_6_2",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_6_3",
+          "title": "理解度チェック",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }
+      ],
+      "dependentSkillIds": [
+        "AndroidApp_3"
+      ]
+    }, {
+      "id": "AndroidApp_7",
+      "title": "そのほかのKotlin文法",
+      "description": "Kotlinのその他の文法について理解する。",
+      "tasks": [
+        {
+          "taskId": "AndroidApp_7_1",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_7_2",
+          "title": "ここにタイトル",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }, {
+          "taskId": "AndroidApp_7_3",
+          "title": "理解度チェック",
+          "description": "ここに具体的に何をするのか説明を書く",
+          "isDone": true
+        }
+      ],
+      "dependentSkillIds": [
+        "AndroidApp_4",
+        "AndroidApp_5",
+        "AndroidApp_6"
+      ]
+    }
+  ]
+}
