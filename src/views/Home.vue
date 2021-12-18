@@ -5,7 +5,7 @@
       cols="1" 
       justify="center">
         <v-img
-        src="/headerImg/java.png"
+        src="/headerImg/Java.png"
         @click.native="updateSelectedCharacter(characterList[0])"
         max-width="70"
         ></v-img>
@@ -14,7 +14,7 @@
       cols="1" 
       justify="center">
         <v-img
-        src="/headerImg/kotlin.png"
+        src="/headerImg/Kotlin.png"
         @click.native="updateSelectedCharacter(characterList[1])"
         max-width="70"
         ></v-img>
@@ -24,7 +24,7 @@
       justify="center"
       >
         <v-img
-        src="/headerImg/flutter.png"
+        src="/headerImg/Go.png"
         @click.native="updateSelectedCharacter(characterList[2])"
         max-width="70"
         ></v-img>
@@ -34,32 +34,12 @@
       justify="center"
       >
         <v-img
-        src="/headerImg/go.png"
+        src="/headerImg/Vue.png"
         @click.native="updateSelectedCharacter(characterList[2])"
         max-width="70"
         ></v-img>
       </v-col>
-      <v-col
-      cols="1"
-      justify="center"
-      >
-        <v-img
-        src="/headerImg/html.png"
-        @click.native="updateSelectedCharacter(characterList[2])"
-        max-width="70"
-        ></v-img>
-      </v-col> 
-      <v-col
-      cols="1"
-      justify="center"
-      >
-        <v-img
-        src="/headerImg/css.png"
-        @click.native="updateSelectedCharacter(characterList[2])"
-        max-width="70"
-        ></v-img>
-      </v-col> 
-    </v-row> 
+    </v-row>
   <div class="character-view">
     <CharacterView :character_id=selectedCharacter.characterId></CharacterView>
   </div>

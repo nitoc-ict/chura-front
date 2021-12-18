@@ -5,12 +5,17 @@
     >
       <v-col
           cols="8"
+          style="
+              height: 400px;
+              border: solid 2px black;
+              "
       >
         <v-img
             contain
+            justify="center"
+            align-self="center"
             :src="character_img"
-            max-height="400"
-            style="border: solid 2px black;"
+            :max-height="character_height"
         >
         </v-img>
       </v-col>
@@ -60,6 +65,7 @@ export default {
         )
       ),
       character_img: "",
+      character_height: 50,
     }
   },
   mounted() {
